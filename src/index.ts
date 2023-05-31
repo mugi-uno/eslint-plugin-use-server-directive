@@ -1,4 +1,9 @@
 import { Rule } from "eslint";
+import minimatch from "minimatch";
+
+interface Options {
+  patterns: { pattern: string }[];
+}
 
 const rule: Rule.RuleModule = {
   meta: {
@@ -10,22 +15,36 @@ const rule: Rule.RuleModule = {
     },
     schema: [
       {
-        type: "array",
-        items: [
-          {
-            type: "object",
-            properties: {
-              pattern: {
-                type: "string",
+        type: "object",
+        properties: {
+          patterns: {
+            type: "array",
+            items: {
+              type: "object",
+              properties: {
+                pattern: {
+                  type: "string",
+                },
               },
+              required: ["pattern"],
             },
           },
-        ],
+        },
+        required: ["patterns"],
       },
     ],
   },
 
   create: (context) => {
+    const options: Options = context.options[0];
+    const isMatch = options.patterns.some(({ pattern }) =>
+      minimatch(context.filename, pattern)
+    );
+
+    if (!isMatch) {
+      return {};
+    }
+
     const firstLine = context.sourceCode.lines[0];
     const isValid =
       firstLine.startsWith(`"use server"`) ||

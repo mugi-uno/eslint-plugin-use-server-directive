@@ -16,7 +16,7 @@ const eslint = new ESLint({
     rules: {
       "use-server-directive/use-server-directive": [
         "error",
-        [{ pattern: "**/*.ts" }],
+        { patterns: [{ pattern: "**/*.js" }] },
       ],
     },
   },
