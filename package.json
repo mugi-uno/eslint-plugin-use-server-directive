@@ -1,0 +1,16 @@
+{
+  "name": "eslint-plugin-use-server-directive",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "vitest"
+  },
+  "devDependencies": {
+    "@types/eslint": "^8.40.0",
+    "@types/glob": "^8.1.0",
+    "@types/node": "^20.2.5",
+    "eslint": "^8.41.0",
+    "glob": "^10.2.6",
+    "typescript": "^5.0.4",
+    "vitest": "^0.31.1"
+  }
+}
